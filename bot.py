@@ -11,8 +11,8 @@ from telegram.ext import (
 import json, os
 
 # ===== CONFIG =====
-BOT_TOKEN = "7747554430:AAFArMAJFB1GFpbp3VaBRZ60fC14r8zovvs"
-ADMIN_ID = 993572089
+BOT_TOKEN = os.getenv("7747554430:AAFArMAJFB1GFpbp3VaBRZ60fC14r8zovvs")
+ADMIN_ID = int(os.getenv("993572089"))
 QUEUE_FILE = "queue.json"
 
 SERVICES = {
@@ -228,4 +228,5 @@ app.add_handler(CallbackQueryHandler(callbacks))
 app.add_handler(MessageHandler(filters.CONTACT, handle_contact))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 app.add_handler(MessageHandler(filters.TEXT, service_selected))
+
 app.run_polling()
