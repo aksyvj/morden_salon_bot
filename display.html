@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Salon Queue Display</title>
+<meta http-equiv="refresh" content="5">
+<style>
+body {
+    background: black;
+    color: white;
+    font-family: Arial;
+    text-align: center;
+}
+h1 { color: #00ffcc; }
+.token { font-size: 120px; }
+.list { font-size: 36px; }
+</style>
+</head>
+<body>
+
+<h1>NOW SERVING</h1>
+<div id="current" class="token">--</div>
+<div id="service"></div>
+
+<hr>
+
+<h1>NEXT</h1>
+<div id="queue" class="list"></div>
+
+<script>
+fetch("queue.json")
+.then(r => r.json())
+.then(q => {
+    if (q.length > 0) {
+        document.getElementById("current").innerText = "#" + q[0].token;
+        document.getElementById("service").innerText = q[0].service;
+    }
+    let out = "";
+    for (let i = 1; i < Math.min(q.length, 6); i++) {
+        out += "#" + q[i].token + " - " + q[i].service + "<br>";
+    }
+    document.getElementById("queue").innerHTML = out;
+});
+</script>
+
+</body>
+</html>
